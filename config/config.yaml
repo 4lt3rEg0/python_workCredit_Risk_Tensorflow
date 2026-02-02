@@ -1,0 +1,27 @@
+data:
+  raw_path: "data/raw/"
+  processed_path: "data/processed/"
+  model_path: "data/models/"
+
+  german_credit:
+    url: "https://archive.ics.uci.edu/ml/machine-learning-databases/statlog/german/german.data"
+    columns: [
+      "checking_status", "duration", "credit_history", "purpose", "credit_amount",
+      "savings_status", "employment", "installment_commitment", "personal_status",
+      "other_parties", "residence_since", "property_magnitude", "age",
+      "other_payment_plans", "housing", "existing_credits", "job",
+      "num_dependents", "own_telephone", "foreign_worker", "class"
+    ]
+
+preprocessing:
+  test_size: 0.15
+  validation_size: 0.15
+  random_state: 42
+
+  categorical_encoding: "onehot"
+  numerical_scaling: "minmax"
+
+  balance_method: "smote"
+  target_encoding:  # 1->0 (bueno), 2->1 (malo)
+    1: 0
+    2: 1
