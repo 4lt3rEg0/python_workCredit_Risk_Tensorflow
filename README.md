@@ -1,95 +1,111 @@
-Descripción del Proyecto
-Este proyecto implementa un sistema de clasificación de riesgo crediticio utilizando técnicas avanzadas de Machine Learning y Deep Learning. El modelo predice la probabilidad de incumplimiento en préstamos basándose en datos demográficos, financieros e histórico crediticio de clientes.
+# Credit Risk Classification with TensorFlow
 
-Problema: Clasificación binaria (Buen riesgo / Mal riesgo)
-Dataset: German Credit Data (UCI Machine Learning Repository)
-Aplicación: Sistema de scoring crediticio para instituciones financieras
+Proyecto de **Machine Learning / Deep Learning** para clasificación binaria de riesgo crediticio utilizando el **German Credit Data** del UCI Machine Learning Repository.
 
-Objetivos
-Desarrollar un modelo predictivo con alta precisión en la detección de riesgo
+El objetivo es predecir si una solicitud representa **buen o mal riesgo crediticio** a partir de variables demográficas y financieras.
 
-Implementar técnicas de preprocesamiento para datos desbalanceados
+## Stack
 
-Crear un sistema interpretable y transparente mediante SHAP
+- Python
+- TensorFlow / Keras
+- pandas / NumPy
+- scikit-learn
+- imbalanced-learn
+- SHAP / LIME
+- Matplotlib / Plotly
+- Jupyter
 
-Optimizar el modelo para producción con TensorFlow
+## Pipeline
 
-Estructura del Proyecto
-text
-python_workCredit_Risk_Tensorflow/
-│
-├── notebooks/                          # Jupyter Notebooks
-│   ├── 01_EDA_Analisis_Exploratorio.ipynb
-│   ├── 02_Preprocesamiento_Datos.ipynb
-│   └── 03_Modelado_Evaluacion.ipynb
-│
-├── src/                                # Código fuente Python
-│   ├── data_preprocessing.py           # Funciones de preprocesamiento
-│   ├── model_architecture.py           # Arquitectura del modelo
-│   ├── train.py                        # Script de entrenamiento
-│   ├── evaluate.py                     # Evaluación del modelo
-│   └── utils.py                        # Funciones auxiliares
-│
-├── models/                             # Modelos entrenados
-│   └── credit_risk_model.h5            # Modelo optimizado
-│
-├── data/                               # Datasets
-│   ├── raw/                            # Datos originales
-│   └── processed/                      # Datos preprocesados
-│
-├── reports/                            # Reportes y resultados
-│   ├── figures/                        # Gráficos y visualizaciones
-│   └── metrics/                        # Métricas de evaluación
-│
-├── requirements.txt                    # Dependencias del proyecto
-├── config.yaml                         # Configuración del proyecto
-└── README.md                           # Este archivo
-🚀 Instalación y Configuración
-Prerrequisitos
-Python 3.8 o superior
+1. Descarga y carga del German Credit Data.
+2. Separación train / validation / test.
+3. Codificación one-hot de variables categóricas.
+4. Escalado MinMax de variables numéricas.
+5. Tratamiento del desbalance mediante SMOTE.
+6. Entrenamiento de una red neuronal binaria.
+7. Evaluación mediante accuracy, precision, recall y ROC-AUC.
+8. Persistencia de modelos, preprocesadores e historial de entrenamiento.
 
-pip (gestor de paquetes de Python)
+## Arquitectura configurada
 
-Instalación
-Clonar el repositorio:
+```text
+Input
+  ↓
+Dense 64
+  ↓
+Dense 32
+  ↓
+Dense 16
+  ↓
+Sigmoid
+```
 
-bash
-git clone https://github.com/4lt3rEg0/python_workCredit_Risk_Tensorflow.git
-cd python_workCredit_Risk_Tensorflow
-Crear entorno virtual (recomendado):
+La configuración incluye dropout, batch normalization, early stopping, reducción adaptativa del learning rate y checkpoint del mejor modelo.
 
-bash
-python -m venv venv
-source venv/bin/activate  # En Windows: venv\Scripts\activate
-Instalar dependencias:
+## Ejemplo de resultado registrado
 
-bash
+Uno de los entrenamientos almacenados en el repositorio registró sobre validación:
+
+| Métrica | Valor |
+| --- | ---: |
+| Accuracy | 0.829 |
+| Precision | 0.785 |
+| Recall | 0.905 |
+| ROC-AUC | 0.906 |
+
+Estos valores corresponden a un artefacto de entrenamiento concreto y no deben interpretarse como una estimación universal del rendimiento del modelo.
+
+## Estructura
+
+```text
+config/
+  config.yaml
+  params.yaml
+data/
+  models/
+  processed/
+notebooks/
+  01_eda_analysis.ipynb
+reports/
+  figures/
+src/
+  data_preprocessing.py
+  model_architecture.py
+  train.py
+  evaluate.py
+main.py
+evaluate_results.py
+requirements.txt
+```
+
+## Instalación
+
+```bash
+python -m venv .venv
 pip install -r requirements.txt
-Dependencias principales
-TensorFlow 2.x - Framework de deep learning
+```
 
-scikit-learn - Algoritmos de ML y preprocesamiento
+## Entrenamiento
 
-pandas & numpy - Manipulación de datos
+```bash
+python main.py
+```
 
-matplotlib & seaborn - Visualizaciones
+## Evaluación
 
-imbalanced-learn - Técnicas para datos desbalanceados
+```bash
+python evaluate_results.py
+```
 
-SHAP - Interpretabilidad del modelo
+## Dataset
 
-jupyter - Notebooks interactivos
+**German Credit Data — UCI Machine Learning Repository**
 
-Dataset
-Nombre: German Credit Data
-Fuente: UCI Machine Learning Repository
-Enlace: https://archive.ics.uci.edu/ml/datasets/statlog+(german+credit+data)
-Características:
+- 1.000 registros
+- 20 variables predictoras
+- clasificación binaria de riesgo
+- distribución original aproximada: 70 % buen riesgo / 30 % mal riesgo
 
-1,000 instancias
+## Objetivo del proyecto
 
-20 atributos + variable objetivo
-
-Variables: demográficas, financieras, histórico crediticio
-
-Distribución: 70% buen riesgo, 30% mal riesgo
+Proyecto académico orientado a practicar un pipeline completo de Deep Learning: preparación de datos, desbalance de clases, diseño y entrenamiento de redes neuronales, evaluación, persistencia de artefactos e interpretabilidad.
